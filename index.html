@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -8,12 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:ital,wght@0,400;0,700;1,700&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
         body {
             background: linear-gradient(-45deg, #091210, #022b16, #000000, #0a1f15);
@@ -24,21 +18,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: clamp(10px, 3vw, 20px);
+            padding: clamp(10px, 3vw, 20px); 
         }
 
         @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
@@ -64,65 +50,66 @@
             line-height: 1.1;
         }
 
-        .settings-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: clamp(10px, 2vw, 15px);
+        /* YENİ: Esnek ve Ortalanmış Ayar Kutusu */
+        .settings-container {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(15px, 3vw, 25px);
             margin-bottom: clamp(20px, 4vw, 30px);
             background: rgba(0, 0, 0, 0.4);
-            padding: clamp(10px, 2vw, 15px);
+            padding: clamp(15px, 3vw, 25px);
             border-radius: 12px;
             border: 1px solid #1f2924;
         }
 
+        .setting-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
         .section-title {
-            grid-column: span 2;
             font-family: 'Teko', sans-serif;
             font-size: clamp(20px, 4vw, 24px);
             color: #a1a1aa;
-            margin-bottom: 5px;
+            text-align: center; /* Başlıkları ortaladık */
             letter-spacing: 1px;
             border-bottom: 1px solid #1f2924;
             padding-bottom: 5px;
         }
 
-        .options-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+        /* YENİ: Butonları tam genişliğe yayan yapı */
+        .options-group { 
+            display: flex; 
+            flex-direction: row; 
+            gap: 10px; 
+            width: 100%;
         }
-
-        .options-group.row {
-            flex-direction: row;
-            grid-column: span 2;
-        }
-
-        .options-group input[type="radio"] {
-            display: none;
-        }
-
+        
+        .options-group input[type="radio"] { display: none; }
+        
         .options-group label {
+            flex: 1; /* Bulunduğu satırdaki boşluğu eşit paylaşır */
             background-color: #121815;
             border: 1px solid #1f2924;
-            padding: clamp(8px, 2vw, 12px) clamp(10px, 2vw, 15px);
+            padding: clamp(10px, 2vw, 14px) 10px;
             border-radius: 6px;
             cursor: pointer;
             transition: 0.2s ease;
-            font-size: clamp(12px, 3vw, 14px);
+            font-size: clamp(12px, 3vw, 15px);
             font-weight: 700;
             color: #d4d4d8;
             font-style: italic;
             text-align: center;
-            flex: 1;
-            user-select: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none; 
             -webkit-tap-highlight-color: transparent;
         }
 
-        .options-group label:hover {
-            border-color: #00FF87;
-        }
-
-        .options-group input[type="radio"]:checked+label {
+        .options-group label:hover { border-color: #00FF87; }
+        .options-group input[type="radio"]:checked + label {
             background-color: #00FF87;
             border-color: #00FF87;
             color: #000;
@@ -166,9 +153,7 @@
             white-space: nowrap;
         }
 
-        .action-btn,
-        .reset-all-btn,
-        .tekrar-btn {
+        .action-btn, .reset-all-btn, .tekrar-btn {
             width: 100%;
             font-weight: 800;
             font-style: italic;
@@ -187,12 +172,7 @@
             border-radius: 8px;
             font-size: clamp(14px, 3.5vw, 16px);
         }
-
-        .action-btn:hover {
-            background-color: #00FF87;
-            box-shadow: 0 0 20px rgba(0, 255, 135, 0.5);
-            transform: scale(1.02);
-        }
+        .action-btn:hover { background-color: #00FF87; box-shadow: 0 0 20px rgba(0, 255, 135, 0.5); transform: scale(1.02); }
 
         .tekrar-btn {
             display: none;
@@ -204,11 +184,7 @@
             border-radius: 6px;
             font-size: clamp(12px, 3vw, 14px);
         }
-
-        .tekrar-btn:hover {
-            background: #00FF87;
-            color: #000;
-        }
+        .tekrar-btn:hover { background: #00FF87; color: #000; }
 
         .reset-all-btn {
             display: none;
@@ -222,11 +198,7 @@
             font-size: clamp(14px, 3.5vw, 18px);
             box-shadow: 0 5px 15px rgba(255, 0, 60, 0.2);
         }
-
-        .reset-all-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 0, 60, 0.4);
-        }
+        .reset-all-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 0, 60, 0.4); }
 
         .loader {
             display: none;
@@ -239,21 +211,9 @@
             animation: spin 0.6s linear infinite;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        .team-result {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
+        .team-result { display: none; opacity: 0; transition: opacity 0.5s ease; }
 
         .team-name {
             font-family: 'Teko', sans-serif;
@@ -261,12 +221,12 @@
             line-height: 1.1;
             color: #fff;
             margin-bottom: 8px;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            flex-wrap: wrap;
+            flex-wrap: wrap; 
         }
 
         .team-rank {
@@ -302,71 +262,60 @@
             opacity: 0.5;
         }
 
+        /* MOBİL UYUM (Telefon ekranlarına gelince flex-direction değişecek) */
         @media (max-width: 650px) {
-            .match-area {
-                flex-direction: column;
-                gap: 25px;
-            }
-
-            .settings-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .section-title {
-                grid-column: span 1;
-                margin-bottom: 0;
-            }
-
-            .options-group.row {
-                grid-column: span 1;
-            }
-
-            .vs-badge {
-                padding: 10px 0;
-                margin: -10px 0;
-            }
-        }
-
-        @media (max-width: 380px) {
-            .options-group.row {
-                flex-direction: column;
+            .match-area { flex-direction: column; gap: 25px; }
+            .vs-badge { padding: 10px 0; margin: -10px 0; }
+            .options-group { 
+                flex-direction: column; /* Telefonda butonları alt alta al */
             }
         }
     </style>
 </head>
-
 <body>
 
     <div class="container">
         <h1>FC 26 CHALLENGE</h1>
-
-        <div class="settings-grid" onchange="oyunuSifirla()">
-            <div class="section-title">TAKIM TÜRÜ</div>
-            <div class="options-group row">
-                <input type="radio" name="type" id="type-club" value="club" checked>
-                <label for="type-club">Kulüp Takımları</label>
-                <input type="radio" name="type" id="type-national" value="national">
-                <label for="type-national">Milli Takımlar</label>
+        
+        <!-- YENİ MİZANPAJ: Grid yerine tamamen esnek (Flex) ve ortalanmış kutular -->
+        <div class="settings-container" onchange="oyunuSifirla()">
+            
+            <div class="setting-section">
+                <div class="section-title">TAKIM TÜRÜ</div>
+                <div class="options-group">
+                    <input type="radio" name="type" id="type-club" value="club" checked>
+                    <label for="type-club">Kulüp Takımları</label>
+                    
+                    <input type="radio" name="type" id="type-national" value="national">
+                    <label for="type-national">Milli Takımlar</label>
+                </div>
             </div>
 
-            <div class="section-title">TAKIM HAVUZU</div>
-            <div class="options-group">
-                <input type="radio" name="pool" id="pool-all" value="all" checked>
-                <label for="pool-all">Tüm Liste</label>
-                <input type="radio" name="pool" id="pool-best" value="best">
-                <label for="pool-best">En İyiler (İlk 28)</label>
-                <input type="radio" name="pool" id="pool-legendary" value="legendary">
-                <label for="pool-legendary">Efsanevi (İlk 10)</label>
+            <div class="setting-section">
+                <div class="section-title">TAKIM HAVUZU</div>
+                <div class="options-group">
+                    <input type="radio" name="pool" id="pool-all" value="all" checked>
+                    <label for="pool-all">Tüm Liste</label>
+                    
+                    <input type="radio" name="pool" id="pool-best" value="best">
+                    <label for="pool-best">En İyiler (İlk 28)</label>
+                    
+                    <input type="radio" name="pool" id="pool-legendary" value="legendary">
+                    <label for="pool-legendary">Efsanevi (İlk 10)</label>
+                </div>
             </div>
 
-            <div class="section-title">EŞLEŞTİRME</div>
-            <div class="options-group">
-                <input type="radio" name="mode" id="mode-close" value="close" checked>
-                <label for="mode-close">Güçleri Yakın Gelsin</label>
-                <input type="radio" name="mode" id="mode-random" value="random">
-                <label for="mode-random">Rastgele Güç</label>
+            <div class="setting-section">
+                <div class="section-title">EŞLEŞTİRME</div>
+                <div class="options-group">
+                    <input type="radio" name="mode" id="mode-close" value="close" checked>
+                    <label for="mode-close">Güçleri Yakın Gelsin</label>
+                    
+                    <input type="radio" name="mode" id="mode-random" value="random">
+                    <label for="mode-random">Rastgele Güç</label>
+                </div>
             </div>
+
         </div>
 
         <div class="match-area">
@@ -381,9 +330,9 @@
                 </div>
                 <button class="tekrar-btn" id="reroll-1" onclick="kuraCek(1)">TEKRAR ÇEK</button>
             </div>
-
+            
             <div class="vs-badge">VS</div>
-
+            
             <div class="player-card">
                 <div class="player-title">PLAYER 2</div>
                 <button class="action-btn" id="btn-p2" onclick="kuraCek(2)">KART AÇ</button>
@@ -430,18 +379,18 @@
         ];
 
         function ulkeBul(lig, takimAdi, tur) {
-            if (tur === "national") return takimAdi;
+            if (tur === "national") return takimAdi; 
 
             if (takimAdi === "Dynamo Kyiv" || takimAdi === "Shakhtar Donetsk") return "Ukrayna";
             if (takimAdi === "Union Saint-Gilloise" || takimAdi === "Club Brugge KV" || takimAdi === "KRC Genk") return "Belçika";
-            if (lig === "Pro League") return "Suudi Arabistan";
-
+            if (lig === "Pro League") return "Suudi Arabistan"; 
+            
             const ulkeler = {
                 "Ligue 1": "Fransa", "La Liga": "İspanya", "Premier League": "İngiltere",
                 "Bundesliga": "Almanya", "Serie A": "İtalya", "Süper Lig": "Türkiye",
                 "Primeira Liga": "Portekiz", "Eredivisie": "Hollanda", "Série A": "Brezilya",
                 "Super League": "Yunanistan", "První liga": "Çekya", "Premiership": "İskoçya",
-                "Liga Profesional de Fútbol": "Arjantin", "Championship": "İngiltere",
+                "Liga Profesional de Fútbol": "Arjantin", "Championship": "İngiltere", 
                 "Serie B": "İtalya", "La Liga 2": "İspanya"
             };
             return ulkeler[lig] || "Bilinmiyor";
@@ -456,12 +405,12 @@
 
             document.getElementById('btn-p1').style.display = 'block';
             document.getElementById('btn-p2').style.display = 'block';
-
+            
             document.getElementById('res-p1').style.display = 'none';
             document.getElementById('res-p2').style.display = 'none';
             document.getElementById('res-p1').style.opacity = '0';
             document.getElementById('res-p2').style.opacity = '0';
-
+            
             document.getElementById('reroll-1').style.display = 'none';
             document.getElementById('reroll-2').style.display = 'none';
             document.getElementById('reset-all').style.display = 'none';
@@ -479,42 +428,35 @@
             document.getElementById(`btn-p${oyuncuNo}`).style.display = 'none';
             document.getElementById(`reroll-${oyuncuNo}`).style.display = 'none';
             document.getElementById('reset-all').style.display = 'none';
-
+            
             let sonucKutusu = document.getElementById(`res-p${oyuncuNo}`);
             sonucKutusu.style.opacity = '0';
-
+            
             document.getElementById(`load-p${oyuncuNo}`).style.display = 'block';
 
             let cekilenIndex = -1;
             let digerOyuncuIndex = oyuncuNo === 1 ? p2Index : p1Index;
 
-            // --- ESKİ SİSTEME DÖNÜŞ VE "AYNI TAKIM GELMESİN" DÖNGÜSÜ (do-while) ---
             if (digerOyuncuIndex === -1 || mod === "random") {
-                // Rastgele seçerken "Acaba diğer oyuncunun takımıyla aynı mı?" diye kontrol eder.
-                // Aynıysa, arka planda farklı takım bulana kadar yeniden çeker.
                 do {
                     cekilenIndex = Math.floor(Math.random() * seciliListe.length);
                 } while (cekilenIndex === digerOyuncuIndex && seciliListe.length > 1);
-            }
-            // --- YAKIN GÜÇ (CLOSE) MODU ---
-            else {
+            } else {
                 let merkez = digerOyuncuIndex;
                 let yon = Math.random() < 0.5 ? "ust" : "alt";
-
-                if (merkez === 0) yon = "alt";
+                
+                if (merkez === 0) yon = "alt"; 
                 if (merkez === seciliListe.length - 1) yon = "ust";
 
                 let secenekler = [];
                 if (yon === "ust") {
                     let sinir = Math.max(0, merkez - 5);
-                    // Döngü "merkez"e kadar (i < merkez) çalıştığı için aynı takım zaten listeye girmez.
                     for (let i = sinir; i < merkez; i++) secenekler.push(i);
                 } else {
                     let sinir = Math.min(seciliListe.length - 1, merkez + 5);
-                    // Döngü merkezden bir sonrakinden (merkez + 1) başladığı için aynı takım giremez.
                     for (let i = merkez + 1; i <= sinir; i++) secenekler.push(i);
                 }
-
+                
                 cekilenIndex = secenekler[Math.floor(Math.random() * secenekler.length)];
             }
 
@@ -523,9 +465,9 @@
 
             setTimeout(() => {
                 document.getElementById(`load-p${oyuncuNo}`).style.display = 'none';
-
+                
                 let takim = seciliListe[cekilenIndex];
-
+                
                 document.getElementById(`name-p${oyuncuNo}`).innerHTML = `${takim.ad} <span class="team-rank">#${takim.sira}</span>`;
                 document.getElementById(`league-p${oyuncuNo}`).innerText = takim.lig;
                 document.getElementById(`country-p${oyuncuNo}`).innerText = ulkeBul(takim.lig, takim.ad, tur);
@@ -539,9 +481,8 @@
                     document.getElementById('reroll-2').style.display = 'block';
                     document.getElementById('reset-all').style.display = 'block';
                 }
-            }, 1500);
+            }, 1500); 
         }
     </script>
 </body>
-
 </html>
