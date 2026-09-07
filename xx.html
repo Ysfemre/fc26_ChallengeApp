@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FC 26 Ultimate Challenge</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:ital,wght@0,400;0,700;1,700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #091210, #022b16, #000000, #0a1f15);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: clamp(10px, 3vw, 20px);
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            background-color: rgba(10, 15, 12, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 135, 0.2);
+            border-radius: 16px;
+            padding: clamp(15px, 4vw, 30px);
+            width: 100%;
+            max-width: 750px;
+            box-shadow: 0 0 40px rgba(0, 255, 135, 0.1);
+        }
+
+        h1 {
+            font-family: 'Teko', sans-serif;
+            font-size: clamp(32px, 6vw, 46px);
+            text-align: center;
+            margin-bottom: clamp(15px, 3vw, 25px);
+            color: #00FF87;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 255, 135, 0.3);
+            line-height: 1.1;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(10px, 2vw, 15px);
+            margin-bottom: clamp(20px, 4vw, 30px);
+            background: rgba(0, 0, 0, 0.4);
+            padding: clamp(10px, 2vw, 15px);
+            border-radius: 12px;
+            border: 1px solid #1f2924;
+        }
+
+        .section-title {
+            grid-column: span 2;
+            font-family: 'Teko', sans-serif;
+            font-size: clamp(20px, 4vw, 24px);
+            color: #a1a1aa;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #1f2924;
+            padding-bottom: 5px;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .options-group.row {
+            flex-direction: row;
+            grid-column: span 2;
+        }
+
+        .options-group input[type="radio"] {
+            display: none;
+        }
+
+        .options-group label {
+            background-color: #121815;
+            border: 1px solid #1f2924;
+            padding: clamp(8px, 2vw, 12px) clamp(10px, 2vw, 15px);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s ease;
+            font-size: clamp(12px, 3vw, 14px);
+            font-weight: 700;
+            color: #d4d4d8;
+            font-style: italic;
+            text-align: center;
+            flex: 1;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .options-group label:hover {
+            border-color: #00FF87;
+        }
+
+        .options-group input[type="radio"]:checked+label {
+            background-color: #00FF87;
+            border-color: #00FF87;
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 255, 135, 0.4);
+        }
+
+        .match-area {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            gap: clamp(15px, 3vw, 20px);
+        }
+
+        .player-card {
+            flex: 1;
+            background: linear-gradient(180deg, #121815 0%, #0a0c0a 100%);
+            border: 2px solid #1f2924;
+            border-radius: 12px;
+            padding: clamp(15px, 3vw, 25px) clamp(10px, 2vw, 20px);
+            text-align: center;
+            position: relative;
+            min-height: clamp(200px, 30vh, 250px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .player-title {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00FF87;
+            color: #000;
+            padding: 2px 15px;
+            border-radius: 20px;
+            font-size: clamp(10px, 2.5vw, 12px);
+            font-weight: 800;
+            font-style: italic;
+            white-space: nowrap;
+        }
+
+        .action-btn,
+        .reset-all-btn,
+        .tekrar-btn {
+            width: 100%;
+            font-weight: 800;
+            font-style: italic;
+            cursor: pointer;
+            transition: 0.2s;
+            text-transform: uppercase;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .action-btn {
+            padding: clamp(12px, 3vw, 15px);
+            background-color: #fff;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: clamp(14px, 3.5vw, 16px);
+        }
+
+        .action-btn:hover {
+            background-color: #00FF87;
+            box-shadow: 0 0 20px rgba(0, 255, 135, 0.5);
+            transform: scale(1.02);
+        }
+
+        .tekrar-btn {
+            display: none;
+            margin-top: 15px;
+            padding: clamp(8px, 2vw, 10px);
+            background: transparent;
+            border: 1px solid #00FF87;
+            color: #00FF87;
+            border-radius: 6px;
+            font-size: clamp(12px, 3vw, 14px);
+        }
+
+        .tekrar-btn:hover {
+            background: #00FF87;
+            color: #000;
+        }
+
+        .reset-all-btn {
+            display: none;
+            margin: clamp(20px, 4vw, 30px) auto 0 auto;
+            max-width: 400px;
+            padding: clamp(12px, 3vw, 15px);
+            background: linear-gradient(90deg, #ff003c 0%, #c5002e 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: clamp(14px, 3.5vw, 18px);
+            box-shadow: 0 5px 15px rgba(255, 0, 60, 0.2);
+        }
+
+        .reset-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 0, 60, 0.4);
+        }
+
+        .loader {
+            display: none;
+            margin: 0 auto;
+            border: 3px solid rgba(0, 255, 135, 0.1);
+            border-top: 3px solid #00FF87;
+            border-radius: 50%;
+            width: clamp(35px, 8vw, 50px);
+            height: clamp(35px, 8vw, 50px);
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .team-result {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .team-name {
+            font-family: 'Teko', sans-serif;
+            font-size: clamp(26px, 6vw, 34px);
+            line-height: 1.1;
+            color: #fff;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .team-rank {
+            font-size: clamp(14px, 3.5vw, 16px);
+            color: rgba(255, 255, 255, 0.3);
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
+
+        .team-league {
+            font-size: clamp(13px, 3vw, 15px);
+            color: #00FF87;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .team-country {
+            font-size: clamp(11px, 2.5vw, 13px);
+            color: #8a8a93;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .vs-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Teko', sans-serif;
+            font-size: clamp(28px, 6vw, 40px);
+            color: #fff;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 650px) {
+            .match-area {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .section-title {
+                grid-column: span 1;
+                margin-bottom: 0;
+            }
+
+            .options-group.row {
+                grid-column: span 1;
+            }
+
+            .vs-badge {
+                padding: 10px 0;
+                margin: -10px 0;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .options-group.row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>FC 26 CHALLENGE</h1>
+
+        <div class="settings-grid" onchange="oyunuSifirla()">
+            <div class="section-title">TAKIM TÜRÜ</div>
+            <div class="options-group row">
+                <input type="radio" name="type" id="type-club" value="club" checked>
+                <label for="type-club">Kulüp Takımları</label>
+                <input type="radio" name="type" id="type-national" value="national">
+                <label for="type-national">Milli Takımlar</label>
+            </div>
+
+            <div class="section-title">TAKIM HAVUZU</div>
+            <div class="options-group">
+                <input type="radio" name="pool" id="pool-all" value="all" checked>
+                <label for="pool-all">Tüm Liste</label>
+                <input type="radio" name="pool" id="pool-best" value="best">
+                <label for="pool-best">En İyiler (İlk 28)</label>
+                <input type="radio" name="pool" id="pool-legendary" value="legendary">
+                <label for="pool-legendary">Efsanevi (İlk 10)</label>
+            </div>
+
+            <div class="section-title">EŞLEŞTİRME</div>
+            <div class="options-group">
+                <input type="radio" name="mode" id="mode-close" value="close" checked>
+                <label for="mode-close">Güçleri Yakın Gelsin</label>
+                <input type="radio" name="mode" id="mode-random" value="random">
+                <label for="mode-random">Rastgele Güç</label>
+            </div>
+        </div>
+
+        <div class="match-area">
+            <div class="player-card">
+                <div class="player-title">PLAYER 1</div>
+                <button class="action-btn" id="btn-p1" onclick="kuraCek(1)">KART AÇ</button>
+                <div class="loader" id="load-p1"></div>
+                <div class="team-result" id="res-p1">
+                    <div class="team-name" id="name-p1">-</div>
+                    <div class="team-league" id="league-p1">-</div>
+                    <div class="team-country" id="country-p1">-</div>
+                </div>
+                <button class="tekrar-btn" id="reroll-1" onclick="kuraCek(1)">TEKRAR ÇEK</button>
+            </div>
+
+            <div class="vs-badge">VS</div>
+
+            <div class="player-card">
+                <div class="player-title">PLAYER 2</div>
+                <button class="action-btn" id="btn-p2" onclick="kuraCek(2)">KART AÇ</button>
+                <div class="loader" id="load-p2"></div>
+                <div class="team-result" id="res-p2">
+                    <div class="team-name" id="name-p2">-</div>
+                    <div class="team-league" id="league-p2">-</div>
+                    <div class="team-country" id="country-p2">-</div>
+                </div>
+                <button class="tekrar-btn" id="reroll-2" onclick="kuraCek(2)">TEKRAR ÇEK</button>
+            </div>
+        </div>
+
+        <button class="reset-all-btn" id="reset-all" onclick="oyunuSifirla()">İKİSİNİ DE SIFIRLA</button>
+    </div>
+
+    <script>
+        const kulupler = [
+            { sira: 1, ad: "Paris Saint-Germain", lig: "Ligue 1" }, { sira: 2, ad: "FC Barcelona", lig: "La Liga" }, { sira: 3, ad: "Real Madrid", lig: "La Liga" }, { sira: 4, ad: "Arsenal FC", lig: "Premier League" }, { sira: 5, ad: "Liverpool FC", lig: "Premier League" }, { sira: 6, ad: "Manchester City", lig: "Premier League" }, { sira: 7, ad: "Bayern München", lig: "Bundesliga" }, { sira: 8, ad: "Inter Milan", lig: "Serie A" }, { sira: 9, ad: "Atlético Madrid", lig: "La Liga" }, { sira: 10, ad: "Aston Villa", lig: "Premier League" },
+            { sira: 11, ad: "Chelsea FC", lig: "Premier League" }, { sira: 12, ad: "Newcastle United", lig: "Premier League" }, { sira: 13, ad: "Borussia Dortmund", lig: "Bundesliga" }, { sira: 14, ad: "AC Milan", lig: "Serie A" }, { sira: 15, ad: "SSC Napoli", lig: "Serie A" }, { sira: 16, ad: "Manchester United", lig: "Premier League" }, { sira: 17, ad: "Tottenham Hotspur", lig: "Premier League" }, { sira: 18, ad: "Juventus FC", lig: "Serie A" }, { sira: 19, ad: "AS Roma", lig: "Serie A" }, { sira: 20, ad: "Athletic Club", lig: "La Liga" },
+            { sira: 21, ad: "Crystal Palace", lig: "Premier League" }, { sira: 22, ad: "Nottingham Forest", lig: "Premier League" }, { sira: 23, ad: "Bayer 04 Leverkusen", lig: "Bundesliga" }, { sira: 24, ad: "Atalanta BC", lig: "Serie A" }, { sira: 25, ad: "RB Leipzig", lig: "Bundesliga" }, { sira: 26, ad: "Galatasaray SK", lig: "Süper Lig" }, { sira: 27, ad: "Real Betis Balompié", lig: "La Liga" }, { sira: 28, ad: "Olympique de Marseille", lig: "Ligue 1" }, { sira: 29, ad: "Villarreal CF", lig: "La Liga" }, { sira: 30, ad: "Sporting CP", lig: "Primeira Liga" },
+            { sira: 31, ad: "Everton FC", lig: "Premier League" }, { sira: 32, ad: "Brighton & Hove Albion", lig: "Premier League" }, { sira: 33, ad: "SS Lazio", lig: "Serie A" }, { sira: 34, ad: "AS Monaco", lig: "Ligue 1" }, { sira: 35, ad: "Fenerbahçe SK", lig: "Süper Lig" }, { sira: 36, ad: "Al Hilal", lig: "Pro League" }, { sira: 37, ad: "Brentford", lig: "Premier League" }, { sira: 38, ad: "Fulham FC", lig: "Premier League" }, { sira: 39, ad: "AFC Bournemouth", lig: "Premier League" }, { sira: 40, ad: "Real Sociedad", lig: "La Liga" },
+            { sira: 41, ad: "SL Benfica", lig: "Primeira Liga" }, { sira: 42, ad: "FC Porto", lig: "Primeira Liga" }, { sira: 43, ad: "West Ham United", lig: "Premier League" }, { sira: 44, ad: "Eintracht Frankfurt", lig: "Bundesliga" }, { sira: 45, ad: "VfB Stuttgart", lig: "Bundesliga" }, { sira: 46, ad: "TSG 1899 Hoffenheim", lig: "Bundesliga" }, { sira: 47, ad: "RC Lens", lig: "Ligue 1" }, { sira: 48, ad: "Lille OSC", lig: "Ligue 1" }, { sira: 49, ad: "Olympique Lyonnais", lig: "Ligue 1" }, { sira: 50, ad: "Sunderland AFC", lig: "Premier League" },
+            { sira: 51, ad: "Como", lig: "Serie A" }, { sira: 52, ad: "CA Osasuna", lig: "La Liga" }, { sira: 53, ad: "Rayo Vallecano", lig: "La Liga" }, { sira: 54, ad: "Girona FC", lig: "La Liga" }, { sira: 55, ad: "PSV", lig: "Eredivisie" }, { sira: 56, ad: "Leeds United", lig: "Premier League" }, { sira: 57, ad: "Al Nassr", lig: "Pro League" }, { sira: 58, ad: "Flamengo", lig: "Série A" }, { sira: 59, ad: "Olympiacos FC", lig: "Super League" }, { sira: 60, ad: "Fiorentina", lig: "Serie A" },
+            { sira: 61, ad: "Getafe CF", lig: "La Liga" }, { sira: 62, ad: "Stade Rennais", lig: "Ligue 1" }, { sira: 63, ad: "VfL Wolfsburg", lig: "Bundesliga" }, { sira: 64, ad: "Bologna FC", lig: "Serie A" }, { sira: 65, ad: "RC Celta", lig: "La Liga" }, { sira: 66, ad: "RCD Mallorca", lig: "La Liga" }, { sira: 67, ad: "Valencia CF", lig: "La Liga" }, { sira: 68, ad: "Burnley", lig: "Premier League" }, { sira: 69, ad: "Botafogo", lig: "Série A" }, { sira: 70, ad: "SK Slavia Praha", lig: "První liga" },
+            { sira: 71, ad: "Atlético Mineiro", lig: "Série A" }, { sira: 72, ad: "AEK Athens", lig: "Super League" }, { sira: 73, ad: "Borussia Mönchengladbach", lig: "Bundesliga" }, { sira: 74, ad: "SC Freiburg", lig: "Bundesliga" }, { sira: 75, ad: "Werder Bremen", lig: "Bundesliga" }, { sira: 76, ad: "Torino FC", lig: "Serie A" }, { sira: 77, ad: "OGC Nice", lig: "Ligue 1" }, { sira: 78, ad: "RC Strasbourg Alsace", lig: "Ligue 1" }, { sira: 79, ad: "Celtic FC", lig: "Premiership" }, { sira: 80, ad: "Boca Juniors", lig: "Liga Profesional de Fútbol" },
+            { sira: 81, ad: "Sporting Clube de Braga", lig: "Primeira Liga" }, { sira: 82, ad: "Wolverhampton Wanderers", lig: "Premier League" }, { sira: 83, ad: "Palmeiras", lig: "Série A" }, { sira: 84, ad: "1. FSV Mainz 05", lig: "Bundesliga" }, { sira: 85, ad: "RCD Espanyol", lig: "La Liga" }, { sira: 86, ad: "Paris FC", lig: "Ligue 1" }, { sira: 87, ad: "Sevilla FC", lig: "La Liga" }, { sira: 88, ad: "Ajax", lig: "Eredivisie" }, { sira: 89, ad: "Feyenoord", lig: "Eredivisie" }, { sira: 90, ad: "Al Ahli SFC", lig: "Pro League" },
+            { sira: 91, ad: "Al Qadsiah FC", lig: "Pro League" }, { sira: 92, ad: "Hamburger SV", lig: "Bundesliga" }, { sira: 93, ad: "Santos", lig: "Série A" }, { sira: 94, ad: "1. FC Köln", lig: "Bundesliga" }, { sira: 95, ad: "1. FC Union Berlin", lig: "Bundesliga" }, { sira: 96, ad: "FC Augsburg", lig: "Bundesliga" }, { sira: 97, ad: "Levante UD", lig: "La Liga" }, { sira: 98, ad: "Beşiktaş JK", lig: "Süper Lig" }, { sira: 99, ad: "River Plate", lig: "Liga Profesional de Fútbol" }, { sira: 100, ad: "Rangers FC", lig: "Premiership" },
+            { sira: 101, ad: "Red Bull Bragantino", lig: "Série A" }, { sira: 102, ad: "Al Ittihad", lig: "Pro League" }, { sira: 103, ad: "Sassuolo", lig: "Serie A" }, { sira: 104, ad: "Stade Brestois 29", lig: "Ligue 1" }, { sira: 105, ad: "PAOK", lig: "Super League" }, { sira: 106, ad: "Deportivo Alavés", lig: "La Liga" }, { sira: 107, ad: "Elche CF", lig: "La Liga" }, { sira: 108, ad: "Racing Club", lig: "Liga Profesional de Fútbol" }, { sira: 109, ad: "Union Saint-Gilloise", lig: "Pro League" }, { sira: 110, ad: "Club Brugge KV", lig: "Pro League" },
+            { sira: 111, ad: "Coventry City", lig: "Championship" }, { sira: 112, ad: "Sparta Praha", lig: "První liga" }, { sira: 113, ad: "Corinthians", lig: "Série A" }, { sira: 114, ad: "Toulouse FC", lig: "Ligue 1" }, { sira: 115, ad: "Parma Calcio", lig: "Serie A" }, { sira: 116, ad: "Cagliari", lig: "Serie A" }, { sira: 117, ad: "Udinese Calcio", lig: "Serie A" }, { sira: 118, ad: "Cremonese", lig: "Serie A" }, { sira: 119, ad: "São Paulo", lig: "Série A" }, { sira: 120, ad: "Panathinaikos FC", lig: "Super League" },
+            { sira: 121, ad: "Ipswich Town", lig: "Championship" }, { sira: 122, ad: "AZ Alkmaar", lig: "Eredivisie" }, { sira: 123, ad: "KRC Genk", lig: "Pro League" }, { sira: 124, ad: "Trabzonspor", lig: "Süper Lig" }, { sira: 125, ad: "Hellas Verona FC", lig: "Serie A" }, { sira: 126, ad: "FC Lorient", lig: "Ligue 1" }, { sira: 127, ad: "Estudiantes de La Plata", lig: "Liga Profesional de Fútbol" }, { sira: 128, ad: "Genoa", lig: "Serie A" }, { sira: 129, ad: "Vélez Sarsfield", lig: "Liga Profesional de Fútbol" }, { sira: 130, ad: "Real Oviedo", lig: "La Liga" },
+            { sira: 131, ad: "Rosario Central", lig: "Liga Profesional de Fútbol" }, { sira: 132, ad: "Middlesbrough FC", lig: "Championship" }, { sira: 133, ad: "Southampton FC", lig: "Championship" }, { sira: 134, ad: "Palermo FC", lig: "Serie B" }, { sira: 135, ad: "Fluminense", lig: "Série A" }, { sira: 136, ad: "Cruzeiro", lig: "Série A" }, { sira: 137, ad: "AJ Auxerre", lig: "Ligue 1" }, { sira: 138, ad: "Lanús", lig: "Liga Profesional de Fútbol" }, { sira: 139, ad: "Bahia", lig: "Série A" }, { sira: 140, ad: "UD Almería", lig: "La Liga 2" },
+            { sira: 141, ad: "FC Nantes", lig: "Ligue 1" }, { sira: 142, ad: "Birmingham City", lig: "Championship" }, { sira: 143, ad: "Grêmio", lig: "Série A" }, { sira: 144, ad: "FC Utrecht", lig: "Eredivisie" }, { sira: 145, ad: "NEC Nijmegen", lig: "Eredivisie" }, { sira: 146, ad: "1. FC Heidenheim 1846", lig: "Bundesliga" }, { sira: 147, ad: "Viktoria Plzeň", lig: "První liga" }, { sira: 148, ad: "Pisa", lig: "Serie A" }, { sira: 149, ad: "Argentinos Juniors", lig: "Liga Profesional de Fútbol" }, { sira: 150, ad: "Dynamo Kyiv", lig: "Premier League" },
+            { sira: 151, ad: "Shakhtar Donetsk", lig: "Premier League" }
+        ];
+
+        const milliTakimlar = [
+            { sira: 1, ad: "Fransa", lig: "Milli Takım" }, { sira: 2, ad: "İspanya", lig: "Milli Takım" }, { sira: 3, ad: "İngiltere", lig: "Milli Takım" }, { sira: 4, ad: "Almanya", lig: "Milli Takım" }, { sira: 5, ad: "Portekiz", lig: "Milli Takım" }, { sira: 6, ad: "Brezilya", lig: "Milli Takım" }, { sira: 7, ad: "İtalya", lig: "Milli Takım" }, { sira: 8, ad: "Arjantin", lig: "Milli Takım" }, { sira: 9, ad: "Hollanda", lig: "Milli Takım" }, { sira: 10, ad: "Belçika", lig: "Milli Takım" },
+            { sira: 11, ad: "Fas", lig: "Milli Takım" }, { sira: 12, ad: "Hırvatistan", lig: "Milli Takım" }, { sira: 13, ad: "Norveç", lig: "Milli Takım" }, { sira: 14, ad: "Türkiye", lig: "Milli Takım" }, { sira: 15, ad: "Uruguay", lig: "Milli Takım" }, { sira: 16, ad: "Senegal", lig: "Milli Takım" }, { sira: 17, ad: "Kolombiya", lig: "Milli Takım" }, { sira: 18, ad: "Fildişi Sahili", lig: "Milli Takım" }, { sira: 19, ad: "Avusturya", lig: "Milli Takım" }, { sira: 20, ad: "Danimarka", lig: "Milli Takım" },
+            { sira: 21, ad: "İsviçre", lig: "Milli Takım" }, { sira: 22, ad: "Çekya", lig: "Milli Takım" }, { sira: 23, ad: "Polonya", lig: "Milli Takım" }, { sira: 24, ad: "İsveç", lig: "Milli Takım" }, { sira: 25, ad: "Ukrayna", lig: "Milli Takım" }, { sira: 26, ad: "Amerika Birleşik Devletleri", lig: "Milli Takım" }, { sira: 27, ad: "Japonya", lig: "Milli Takım" }, { sira: 28, ad: "İskoçya", lig: "Milli Takım" }, { sira: 29, ad: "Cezayir", lig: "Milli Takım" }, { sira: 30, ad: "Ekvador", lig: "Milli Takım" },
+            { sira: 31, ad: "Meksika", lig: "Milli Takım" }, { sira: 32, ad: "Galler", lig: "Milli Takım" }, { sira: 33, ad: "Paraguay", lig: "Milli Takım" }, { sira: 34, ad: "Kanada", lig: "Milli Takım" }, { sira: 35, ad: "Gana", lig: "Milli Takım" }, { sira: 36, ad: "Güney Kore", lig: "Milli Takım" }, { sira: 37, ad: "Mısır", lig: "Milli Takım" }, { sira: 38, ad: "İrlanda Cumhuriyeti", lig: "Milli Takım" }, { sira: 39, ad: "Macaristan", lig: "Milli Takım" }, { sira: 40, ad: "Demokratik Kongo Cumhuriyeti", lig: "Milli Takım" },
+            { sira: 41, ad: "Bosna-Hersek", lig: "Milli Takım" }, { sira: 42, ad: "Romanya", lig: "Milli Takım" }, { sira: 43, ad: "Suudi Arabistan", lig: "Milli Takım" }, { sira: 44, ad: "İran", lig: "Milli Takım" }, { sira: 45, ad: "Kuzey İrlanda", lig: "Milli Takım" }, { sira: 46, ad: "İzlanda", lig: "Milli Takım" }, { sira: 47, ad: "Tunus", lig: "Milli Takım" }, { sira: 48, ad: "Avustralya", lig: "Milli Takım" }, { sira: 49, ad: "Finlandiya", lig: "Milli Takım" }, { sira: 50, ad: "Yeşil Burun Adaları", lig: "Milli Takım" },
+            { sira: 51, ad: "Yeni Zelanda", lig: "Milli Takım" }, { sira: 52, ad: "Panama", lig: "Milli Takım" }, { sira: 53, ad: "Güney Afrika", lig: "Milli Takım" }
+        ];
+
+        function ulkeBul(lig, takimAdi, tur) {
+            if (tur === "national") return takimAdi;
+
+            if (takimAdi === "Dynamo Kyiv" || takimAdi === "Shakhtar Donetsk") return "Ukrayna";
+            if (takimAdi === "Union Saint-Gilloise" || takimAdi === "Club Brugge KV" || takimAdi === "KRC Genk") return "Belçika";
+            if (lig === "Pro League") return "Suudi Arabistan";
+
+            const ulkeler = {
+                "Ligue 1": "Fransa", "La Liga": "İspanya", "Premier League": "İngiltere",
+                "Bundesliga": "Almanya", "Serie A": "İtalya", "Süper Lig": "Türkiye",
+                "Primeira Liga": "Portekiz", "Eredivisie": "Hollanda", "Série A": "Brezilya",
+                "Super League": "Yunanistan", "První liga": "Çekya", "Premiership": "İskoçya",
+                "Liga Profesional de Fútbol": "Arjantin", "Championship": "İngiltere",
+                "Serie B": "İtalya", "La Liga 2": "İspanya"
+            };
+            return ulkeler[lig] || "Bilinmiyor";
+        }
+
+        let p1Index = -1;
+        let p2Index = -1;
+
+        function oyunuSifirla() {
+            p1Index = -1;
+            p2Index = -1;
+
+            document.getElementById('btn-p1').style.display = 'block';
+            document.getElementById('btn-p2').style.display = 'block';
+
+            document.getElementById('res-p1').style.display = 'none';
+            document.getElementById('res-p2').style.display = 'none';
+            document.getElementById('res-p1').style.opacity = '0';
+            document.getElementById('res-p2').style.opacity = '0';
+
+            document.getElementById('reroll-1').style.display = 'none';
+            document.getElementById('reroll-2').style.display = 'none';
+            document.getElementById('reset-all').style.display = 'none';
+        }
+
+        function kuraCek(oyuncuNo) {
+            const tur = document.querySelector('input[name="type"]:checked').value;
+            const havuz = document.querySelector('input[name="pool"]:checked').value;
+            const mod = document.querySelector('input[name="mode"]:checked').value;
+
+            let seciliListe = tur === "club" ? kulupler : milliTakimlar;
+            if (havuz === "legendary") seciliListe = seciliListe.slice(0, 10);
+            if (havuz === "best") seciliListe = seciliListe.slice(0, 28);
+
+            document.getElementById(`btn-p${oyuncuNo}`).style.display = 'none';
+            document.getElementById(`reroll-${oyuncuNo}`).style.display = 'none';
+            document.getElementById('reset-all').style.display = 'none';
+
+            let sonucKutusu = document.getElementById(`res-p${oyuncuNo}`);
+            sonucKutusu.style.opacity = '0';
+
+            document.getElementById(`load-p${oyuncuNo}`).style.display = 'block';
+
+            let cekilenIndex = -1;
+            let digerOyuncuIndex = oyuncuNo === 1 ? p2Index : p1Index;
+
+            // --- ESKİ SİSTEME DÖNÜŞ VE "AYNI TAKIM GELMESİN" DÖNGÜSÜ (do-while) ---
+            if (digerOyuncuIndex === -1 || mod === "random") {
+                // Rastgele seçerken "Acaba diğer oyuncunun takımıyla aynı mı?" diye kontrol eder.
+                // Aynıysa, arka planda farklı takım bulana kadar yeniden çeker.
+                do {
+                    cekilenIndex = Math.floor(Math.random() * seciliListe.length);
+                } while (cekilenIndex === digerOyuncuIndex && seciliListe.length > 1);
+            }
+            // --- YAKIN GÜÇ (CLOSE) MODU ---
+            else {
+                let merkez = digerOyuncuIndex;
+                let yon = Math.random() < 0.5 ? "ust" : "alt";
+
+                if (merkez === 0) yon = "alt";
+                if (merkez === seciliListe.length - 1) yon = "ust";
+
+                let secenekler = [];
+                if (yon === "ust") {
+                    let sinir = Math.max(0, merkez - 5);
+                    // Döngü "merkez"e kadar (i < merkez) çalıştığı için aynı takım zaten listeye girmez.
+                    for (let i = sinir; i < merkez; i++) secenekler.push(i);
+                } else {
+                    let sinir = Math.min(seciliListe.length - 1, merkez + 5);
+                    // Döngü merkezden bir sonrakinden (merkez + 1) başladığı için aynı takım giremez.
+                    for (let i = merkez + 1; i <= sinir; i++) secenekler.push(i);
+                }
+
+                cekilenIndex = secenekler[Math.floor(Math.random() * secenekler.length)];
+            }
+
+            if (oyuncuNo === 1) p1Index = cekilenIndex;
+            else p2Index = cekilenIndex;
+
+            setTimeout(() => {
+                document.getElementById(`load-p${oyuncuNo}`).style.display = 'none';
+
+                let takim = seciliListe[cekilenIndex];
+
+                document.getElementById(`name-p${oyuncuNo}`).innerHTML = `${takim.ad} <span class="team-rank">#${takim.sira}</span>`;
+                document.getElementById(`league-p${oyuncuNo}`).innerText = takim.lig;
+                document.getElementById(`country-p${oyuncuNo}`).innerText = ulkeBul(takim.lig, takim.ad, tur);
+
+                sonucKutusu.style.display = 'flex';
+                sonucKutusu.style.flexDirection = 'column';
+                setTimeout(() => sonucKutusu.style.opacity = '1', 50);
+
+                if (p1Index !== -1 && p2Index !== -1) {
+                    document.getElementById('reroll-1').style.display = 'block';
+                    document.getElementById('reroll-2').style.display = 'block';
+                    document.getElementById('reset-all').style.display = 'block';
+                }
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>
