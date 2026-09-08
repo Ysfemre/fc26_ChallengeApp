@@ -4,7 +4,7 @@ EA Sports FC 26 için geliştirilmiş, takım reytinglerine ve liglere göre fil
 
 ## 🌐 Canlı Önizleme (Live Preview)
 Uygulamayı tarayıcı üzerinden hemen denemek için aşağıdaki bağlantıya tıklayabilirsiniz:
-👉 **[Projenin Canlı Önizlemesi İçin Tıklayın](https://ysfemre.github.io/fc26_ChallengeApp/)** *(Kral, linki buraya bırakabilirsin)*
+👉 **[Projenin Canlı Önizlemesi İçin Tıklayın](https://ysfemre.github.io/fc26_ChallengeApp/)** 
 
 ## ✨ Özellikler
 * FC 26 takımları arasında reyting ve lig bazlı gelişmiş filtreleme mekanizması.
